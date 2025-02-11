@@ -10,4 +10,4 @@
 3. コンテナ内のPostgreSQLに接続
 `docker exec -it task-management-db psql -U postgres -d taskdb`
 - `\dt`：テーブル一覧表示
-- `\d users`: 特定のテーブルの詳細な構造確認
+- `\d "User"`: 特定のテーブルの詳細な構造確認
