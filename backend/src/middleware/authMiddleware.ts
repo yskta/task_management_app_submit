@@ -20,12 +20,13 @@ export const authenticateToken = (
   req: Request,
   res: Response,
   next: NextFunction
-) => {
+): void => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1];
 
   if (!token) {
-    return res.status(401).json({ message: '認証トークンが必要です' });
+    res.status(401).json({ message: '認証トークンが必要です' });
+    return;
   }
 
   try {
@@ -33,6 +34,7 @@ export const authenticateToken = (
     req.userId = payload.userId;
     next();
   } catch (error) {
-    return res.status(403).json({ message: '無効なトークンです' });
+    res.status(403).json({ message: '無効なトークンです' });
+    return ;
   }
 };
