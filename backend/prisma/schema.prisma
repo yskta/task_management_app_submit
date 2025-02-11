@@ -1,0 +1,60 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  // ユーザーが作成したタスク
+  createdTasks  Task[]    @relation("TaskCreator")
+  // ユーザーのタスクアサイン関係
+  assignments   TaskAssignment[]
+}
+
+model Task {
+  id          Int       @id @default(autoincrement())
+  title       String
+  description String?
+  dueDate     DateTime?
+  status      String    @default("TODO")
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  // タスクの作成者
+  creator     User      @relation("TaskCreator", fields: [creatorId], references: [id])
+  creatorId   Int
+  // タスクのアサイン関係
+  assignments TaskAssignment[]
+}
+
+
+model TaskAssignment {
+  id        Int      @id @default(autoincrement())
+  taskId    Int
+  userId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+
+  // リレーション
+  user      User @relation(fields: [userId], references: [id])
+  task      Task @relation(fields: [taskId], references: [id])
+
+  @@unique([taskId, userId])
+}
