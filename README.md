@@ -11,3 +11,6 @@
 `docker exec -it task-management-db psql -U postgres -d taskdb`
 - `\dt`：テーブル一覧表示
 - `\d "User"`: 特定のテーブルの詳細な構造確認
+
+### サーバーサイド起動
+- `npm run dev`
