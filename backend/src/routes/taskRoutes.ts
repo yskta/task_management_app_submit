@@ -13,6 +13,11 @@ router.get('/', async (req, res) => {
   await taskController.getAllTasks(req, res);
 });
 
+// タスク詳細の取得
+router.get('/:id', async (req, res) => {
+  await taskController.getTaskById(req, res);
+});
+
 // タスクの作成
 router.post('/', async (req, res) => {
   await taskController.createTask(req, res);
@@ -26,6 +31,11 @@ router.put('/:id', async (req, res) => {
 // タスクの削除
 router.delete('/:id', async (req, res) => {
   await taskController.deleteTask(req, res);
+});
+
+// タスクへのユーザーアサイン
+router.post('/:id/assign', async (req, res) => {
+  await taskController.assignUser(req, res);
 });
 
 export default router;

@@ -14,6 +14,22 @@ export class TaskController {
     }
   }
 
+  async getTaskById(req: Request, res: Response) {
+    try {
+      const userId = req.userId!;
+      const taskId = parseInt(req.params.id);
+  
+      const task = await taskService.getTaskById(taskId, userId);
+      res.json(task);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(404).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: 'タスクの取得に失敗しました' });
+      }
+    }
+  }
+
   async createTask(req: Request, res: Response) {
     try {
       const userId = req.userId!;
@@ -68,4 +84,25 @@ export class TaskController {
       }
     }
   }
+
+  async assignUser(req: Request, res: Response) {
+    try {
+      const userId = req.userId!;
+      const taskId = parseInt(req.params.id);
+      const { assigneeId } = req.body;
+  
+      if (!assigneeId) {
+        return res.status(400).json({ message: 'アサインするユーザーIDが必要です' });
+      }
+  
+      const task = await taskService.assignUser(taskId, userId, assigneeId);
+      res.json(task);
+    } catch (error) {
+      if (error instanceof Error) {
+        res.status(400).json({ message: error.message });
+      } else {
+        res.status(500).json({ message: 'ユーザーのアサインに失敗しました' });
+      }
+    }
+  }  
 }
