@@ -19,4 +19,9 @@ app.use((err: Error, req: express.Request, res: express.Response, next: express.
   res.status(500).json({ message: 'Something broke!' });
 });
 
+app.use(cors({
+  origin: 'http://localhost:3000', // Reactのデフォルトポート
+  credentials: true
+}));
+
 export default app;
