@@ -17,3 +17,6 @@
 
 ### サーバーサイド起動
 - `cd backend && npm run dev`
+
+### フロント起動
+- `cd frontend && npm start`
