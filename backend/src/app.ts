@@ -26,6 +26,7 @@ app.use(cors({
 
 // app.ts
 app.get('/health', (req, res) => {
+  console.log('health check');
   res.json({ status: 'ok' });
 });
 
