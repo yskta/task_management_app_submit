@@ -12,5 +12,8 @@
 - `\dt`：テーブル一覧表示
 - `\d "User"`: 特定のテーブルの詳細な構造確認
 
+### マイグレーション実行
+- `cd backend && npx prisma migrate dev --name init`
+
 ### サーバーサイド起動
-- `npm run dev`
+- `cd backend && npm run dev`
