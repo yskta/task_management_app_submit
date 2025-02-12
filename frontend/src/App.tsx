@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import axios from 'axios';
+import { LoginPage } from './pages/LoginPage';
+import { SignupPage } from './pages/SignupPage';
 
 function App() {
   const [message, setMessage] = useState('');
+
   useEffect(() => {
     axios.get('http://localhost:8080/health')
       .then(response => {
@@ -16,24 +18,22 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-        <h1>疎通確認</h1>
-        <p>{message}</p>
-      </header>
-    </div>
+    <BrowserRouter>
+      <div className="min-h-screen bg-gray-100">
+        {/* ヘルスチェックの表示 */}
+        <div className="p-4">
+          <h1 className="text-xl font-bold">サーバー状態</h1>
+          <p className="mt-2">{message}</p>
+        </div>
+
+        {/* メインコンテンツ */}
+        <Routes>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/signup" element={<SignupPage />} />
+          {/* ここに他のルートを追加していく */}
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
