@@ -2,12 +2,14 @@ import React, { useEffect, useState } from 'react';
 import { taskService } from '../services/taskService';
 import { Task } from '../types/task';
 import { CreateTaskModal } from '../components/CreateTaskModal';
+import { TaskDetailModal } from '../components/TaskDetailModal';
 
 export const TaskListPage: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedTask, setSelectedTask] = useState<Task | null>(null);
 
   const fetchTasks = async () => {
     try {
@@ -46,10 +48,11 @@ export const TaskListPage: React.FC = () => {
         onTaskCreated={fetchTasks}
         />
         <div className="grid gap-4">
-            {tasks.map(task => (
+            {tasks.map(task => (  
             <div 
                 key={task.id} 
                 className="p-4 bg-white rounded-lg shadow"
+                onClick={() => setSelectedTask(task)}
             >
                 <h2 className="text-xl font-semibold">{task.title}</h2>
                 {task.description && (
@@ -69,6 +72,13 @@ export const TaskListPage: React.FC = () => {
                 </div>
             </div>
             ))}
+            {selectedTask && (
+                <TaskDetailModal
+                task={selectedTask}
+                isOpen={!!selectedTask}
+                onClose={() => setSelectedTask(null)}
+                />
+            )}
         </div>
     </div>
   );
