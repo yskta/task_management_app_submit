@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Task } from '../types/task';
+import { User } from '../types/user';
 import { taskService } from '../services/taskService';
+import { userService } from '../services/userService';
 
 interface EditTaskModalProps {
   task: Task;
@@ -23,6 +25,9 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
   onClose,
   onTaskUpdated
 }) => {
+  const [users, setUsers] = useState<User[]>([]);
+  const [selectedUserId, setSelectedUserId] = useState<number | null>(null);
+
   const { register, handleSubmit } = useForm<TaskFormData>({
     defaultValues: {
       title: task.title,
@@ -31,6 +36,18 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
       status: task.status
     }
   });
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const fetchedUsers = await userService.getUsers();
+        setUsers(fetchedUsers);
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   const onSubmit = async (data: TaskFormData) => {
     try {
@@ -51,6 +68,17 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
       } catch (error) {
         console.error('Error deleting task:', error);
       }
+    }
+  };
+
+  const handleAssignUser = async () => {
+    if (!selectedUserId) return;
+    try {
+      await taskService.assignUser(task.id, selectedUserId);
+      onTaskUpdated();
+      setSelectedUserId(null);
+    } catch (error) {
+      console.error('Error assigning user:', error);
     }
   };
 
@@ -93,6 +121,31 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
               <option value="IN_PROGRESS">IN_PROGRESS</option>
               <option value="DONE">DONE</option>
             </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-gray-700 mb-2">メンバーのアサイン</label>
+            <div className="flex gap-2">
+              <select
+                value={selectedUserId || ''}
+                onChange={(e) => setSelectedUserId(Number(e.target.value))}
+                className="flex-1 px-3 py-2 border rounded"
+              >
+                <option value="">ユーザーを選択</option>
+                {users.map(user => (
+                  <option key={user.id} value={user.id}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
+              <button
+                type="button"
+                onClick={handleAssignUser}
+                disabled={!selectedUserId}
+                className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 disabled:bg-gray-300"
+              >
+                アサイン
+              </button>
+            </div>
           </div>
           <div className="flex justify-between">
             <button
