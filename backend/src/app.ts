@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import taskRoutes from './routes/taskRoutes';
+import userRoutes from './routes/userRoutes';
 
 const app = express();
 
@@ -12,6 +13,7 @@ app.use(express.json());
 // ルートの設定
 app.use('/auth', authRoutes);
 app.use('/tasks', taskRoutes);
+app.use('/users', userRoutes);
 
 // 基本的なエラーハンドリング
 app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
