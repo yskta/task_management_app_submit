@@ -77,6 +77,7 @@ export class TaskService {
     return await prisma.task.create({
       data: {
         ...data,
+        dueDate: data.dueDate ? new Date(data.dueDate).toISOString() : undefined,
         creatorId: userId
       },
       include: {

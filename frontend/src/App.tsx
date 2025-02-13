@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import axios from 'axios';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
+import { TaskListPage } from './pages/TaskListPage';
 
 function App() {
   const [message, setMessage] = useState('');
@@ -44,11 +45,18 @@ function App() {
           <h1 className="text-xl font-bold">サーバー状態</h1>
           <p className="mt-2">{message}</p>
         </div>
-
         {/* メインコンテンツ */}
+        <div className="p-4">
+          <h1 className="text-2xl font-bold">タスク管理アプリ</h1>
+        </div>
+        {/* タスク一覧 */}
+        <div className="p-4">
+          <TaskListPage />
+        </div>
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/tasks" element={<TaskListPage />} />
           {/* ここに他のルートを追加していく */}
         </Routes>
       </div>
