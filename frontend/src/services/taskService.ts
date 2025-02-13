@@ -53,5 +53,18 @@ export const taskService = {
         Authorization: `Bearer ${localStorage.getItem('token')}`
       }
     });
+  },
+
+  async assignUser(taskId: number, assigneeId: number): Promise<Task> {
+    const response = await axios.post(
+      `${process.env.REACT_APP_API_URL}/tasks/${taskId}/assign`,
+      { assigneeId },
+      {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem('token')}`
+        }
+      }
+    );
+    return response.data;
   }
 };
