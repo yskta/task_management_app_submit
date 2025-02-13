@@ -77,6 +77,7 @@ export const TaskListPage: React.FC = () => {
                 task={selectedTask}
                 isOpen={!!selectedTask}
                 onClose={() => setSelectedTask(null)}
+                onTaskUpdated={fetchTasks}
                 />
             )}
         </div>
