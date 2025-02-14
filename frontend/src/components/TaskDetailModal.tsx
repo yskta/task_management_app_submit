@@ -49,31 +49,27 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
         )}
         <div className="space-y-4">
           <div>
-            <h3 className="text-lg font-semibold mb-2">説明</h3>
-            <p className="text-gray-600">{task.description || '説明なし'}</p>
+            <h3 className="text-lg font-semibold mb-2">説明:{task.description || '説明なし'}</h3>
           </div>
 
           <div className="flex gap-4">
             <div>
-              <h3 className="text-sm font-semibold text-gray-500">ステータス</h3>
               <span className={`inline-block px-2 py-1 rounded text-sm ${
                 task.status === 'TODO' ? 'bg-yellow-100 text-yellow-800' :
                 task.status === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-800' :
                 'bg-green-100 text-green-800'
               }`}>
-                {task.status}
+                ステータス:{task.status}
               </span>
             </div>
 
             <div>
-              <h3 className="text-sm font-semibold text-gray-500">作成者</h3>
-              <p>{task.creator.name}</p>
+              <p>作成者:{task.creator.name}</p>
             </div>
 
             {task.dueDate && (
               <div>
-                <h3 className="text-sm font-semibold text-gray-500">期限</h3>
-                <p>{new Date(task.dueDate).toLocaleString()}</p>
+                <p>期限:{new Date(task.dueDate).toLocaleString()}</p>
               </div>
             )}
           </div>
