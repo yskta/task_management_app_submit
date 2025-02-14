@@ -1,10 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { LoginCredentials } from '../types/auth';
 import axios from 'axios';
 
 export const LoginPage: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginCredentials>();
+  const navigate = useNavigate();  // useNavigateを追加
 
   const onSubmit = async (data: LoginCredentials) => {
     try {
@@ -12,6 +14,7 @@ export const LoginPage: React.FC = () => {
       localStorage.setItem('token', response.data.token);
       console.log('Login success:', response.data);
       // ログイン成功後の処理（例：ホームページへリダイレクト）
+      navigate('/tasks');
     } catch (error) {
       console.error('Login failed:', error);
     }

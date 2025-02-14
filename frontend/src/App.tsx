@@ -4,8 +4,7 @@ import axios from 'axios';
 import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 import { TaskListPage } from './pages/TaskListPage';
-
-// ナビゲーションバーを別コンポーネントとして切り出し
+import { ProtectedRoute } from './components/ProtectedRoute';
 const NavigationBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
   const navigate = useNavigate();
@@ -57,7 +56,6 @@ const NavigationBar = () => {
   );
 };
 
-
 function App() {
   const [message, setMessage] = useState('');
 
@@ -83,8 +81,9 @@ function App() {
         <Routes>
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
-          <Route path="/tasks" element={<TaskListPage />} />
-          {/* ここに他のルートを追加していく */}
+          <Route path="/tasks" element={
+            <ProtectedRoute><TaskListPage /></ProtectedRoute>
+          } />
         </Routes>
       </div>
     </BrowserRouter>
