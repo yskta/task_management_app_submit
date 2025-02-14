@@ -7,7 +7,16 @@ export class TaskService {
     // TaskのTitle等も含めて取得している
     return await prisma.task.findMany({
       where: {
-        creatorId: userId
+        OR: [
+          { creatorId: userId },  // タスクの作成者
+          {
+            assignments: {
+              some: {
+                userId: userId  // タスクにアサインされているユーザー
+              }
+            }
+          }
+        ]
       },
       include: {
         creator: {
