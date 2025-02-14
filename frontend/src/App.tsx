@@ -79,8 +79,7 @@ function App() {
         <div className="min-h-screen bg-gray-100">
           {/* ヘルスチェックの表示 */}
           <div className="p-4">
-            <h1 className="text-xl font-bold">サーバー状態</h1>
-            <p className="mt-2">{message}</p>
+            <h2 className="text-xl font-bold">接続状態:{message}</h2>
           </div>
           <Routes>
             <Route path="/login" element={<LoginPage />} />
