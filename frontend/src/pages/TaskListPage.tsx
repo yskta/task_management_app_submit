@@ -54,21 +54,23 @@ export const TaskListPage: React.FC = () => {
                 className="p-4 bg-white rounded-lg shadow"
                 onClick={() => setSelectedTask(task)}
             >
-                <h2 className="text-xl font-semibold">{task.title}</h2>
+                <h2 className="text-xl font-semibold">タイトル:{task.title}</h2>
                 {task.description && (
-                <p className="text-gray-600 mt-2">{task.description}</p>
+                <p className="text-gray-600 mt-2">説明:{task.description}</p>
                 )}
-                <div className="mt-4 flex justify-between items-center">
-                <span className="text-sm text-gray-500">
-                    作成者: {task.creator.name}
-                </span>
-                <span className={`px-2 py-1 rounded text-sm ${
-                    task.status === 'TODO' ? 'bg-yellow-100 text-yellow-800' :
-                    task.status === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-800' :
-                    'bg-green-100 text-green-800'
-                }`}>
-                    {task.status}
-                </span>
+                <div className="mt-2">
+                  <div>
+                    <span className="text-sm text-gray-500">作成者: {task.creator.name}</span>
+                  </div>
+                  <div>
+                    <span className={`px-2 py-1 rounded text-sm ${
+                        task.status === 'TODO' ? 'bg-yellow-100 text-yellow-800' :
+                        task.status === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-800' :
+                        'bg-green-100 text-green-800'
+                    }`}>
+                        ステータス: {task.status}
+                    </span>
+                  </div>
                 </div>
             </div>
             ))}
