@@ -5,8 +5,11 @@ import { LoginPage } from './pages/LoginPage';
 import { SignupPage } from './pages/SignupPage';
 import { TaskListPage } from './pages/TaskListPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+
 const NavigationBar = () => {
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  // const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const { isLoggedIn, setIsLoggedIn } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -71,21 +74,23 @@ function App() {
 
   return (
     <BrowserRouter>
-      <NavigationBar />
-      <div className="min-h-screen bg-gray-100">
-        {/* ヘルスチェックの表示 */}
-        <div className="p-4">
-          <h1 className="text-xl font-bold">サーバー状態</h1>
-          <p className="mt-2">{message}</p>
+      <AuthProvider>
+        <NavigationBar />
+        <div className="min-h-screen bg-gray-100">
+          {/* ヘルスチェックの表示 */}
+          <div className="p-4">
+            <h1 className="text-xl font-bold">サーバー状態</h1>
+            <p className="mt-2">{message}</p>
+          </div>
+          <Routes>
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route path="/tasks" element={
+              <ProtectedRoute><TaskListPage /></ProtectedRoute>
+            } />
+          </Routes>
         </div>
-        <Routes>
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/tasks" element={
-            <ProtectedRoute><TaskListPage /></ProtectedRoute>
-          } />
-        </Routes>
-      </div>
+      </AuthProvider>
     </BrowserRouter>
   );
 }

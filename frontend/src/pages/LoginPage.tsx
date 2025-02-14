@@ -3,17 +3,19 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { LoginCredentials } from '../types/auth';
 import axios from 'axios';
+import { useAuth } from '../contexts/AuthContext';
 
 export const LoginPage: React.FC = () => {
   const { register, handleSubmit, formState: { errors } } = useForm<LoginCredentials>();
-  const navigate = useNavigate();  // useNavigateを追加
+  const navigate = useNavigate();
+  const { setIsLoggedIn } = useAuth();
 
   const onSubmit = async (data: LoginCredentials) => {
     try {
       const response = await axios.post('http://localhost:8080/auth/login', data);
       localStorage.setItem('token', response.data.token);
       console.log('Login success:', response.data);
-      // ログイン成功後の処理（例：ホームページへリダイレクト）
+      setIsLoggedIn(true);
       navigate('/tasks');
     } catch (error) {
       console.error('Login failed:', error);
