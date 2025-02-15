@@ -30,6 +30,7 @@ docker-compose up -d
 cd backend
 npm install
 npx prisma migrate dev --name init
+npm run seed
 npm run dev
 ```
 4. フロントエンドの起動
@@ -38,6 +39,15 @@ cd frontend
 npm install
 npm start
 ```
+5. フロントからログインする場合
+### User1
+- メールアドレス:user1@example.com
+- パスワード:password
+### User2
+- メールアドレス:user2@example.com
+- パスワード:password
+### その他
+サインアップ機能でユーザー追加可能
 
 ### 補足
 - コンテナの起動確認
