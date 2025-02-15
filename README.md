@@ -54,7 +54,9 @@ cd frontend
 npm install
 npm start
 ```
-5. フロントからログインする場合
+5. フロントからログイン
+`http://localhost:3000`にアクセス。
+- ログイン情報
 ### User1
 - メールアドレス:user1@example.com
 - パスワード:password
