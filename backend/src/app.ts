@@ -3,6 +3,8 @@ import cors from 'cors';
 import authRoutes from './routes/authRoutes';
 import taskRoutes from './routes/taskRoutes';
 import userRoutes from './routes/userRoutes';
+import swaggerUi from 'swagger-ui-express';
+import { specs } from './config/swagger';
 
 const app = express();
 
@@ -31,5 +33,7 @@ app.get('/health', (req, res) => {
   console.log('health check');
   res.json({ status: 'ok' });
 });
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
 export default app;
