@@ -142,8 +142,21 @@ export class TaskService {
       throw new Error('タスクが見つからないか、アクセス権限がありません');
     }
 
-    await prisma.task.delete({
-      where: { id: taskId }
+    // トランザクションを使用して、関連するアサインメントも削除
+    return await prisma.$transaction(async (tx) => {
+      // まず、関連するアサインメントを削除
+      await tx.taskAssignment.deleteMany({
+        where: {
+          taskId: taskId
+        }
+      });
+
+      // その後、タスクを削除
+      await tx.task.delete({
+        where: {
+          id: taskId
+        }
+      });
     });
   }
 
