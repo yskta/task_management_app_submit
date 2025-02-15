@@ -55,8 +55,7 @@ npm install
 npm start
 ```
 5. フロントからログイン
-`http://localhost:3000`にアクセス。
-- ログイン情報
+- `http://localhost:3000`にアクセス。以下の情報でログインできます。
 ### User1
 - メールアドレス:user1@example.com
 - パスワード:password
