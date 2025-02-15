@@ -39,7 +39,7 @@ npm install
 npm start
 ```
 
-###補足
+### 補足
 - コンテナの起動確認
 ```
 docker ps
