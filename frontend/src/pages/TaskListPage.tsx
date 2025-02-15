@@ -80,6 +80,7 @@ export const TaskListPage: React.FC = () => {
                 isOpen={!!selectedTask}
                 onClose={() => setSelectedTask(null)}
                 onTaskUpdated={fetchTasks}
+                onTaskDeleted={fetchTasks}
                 />
             )}
         </div>
