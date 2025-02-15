@@ -49,3 +49,9 @@ docker ps
 - `\dt`：テーブル一覧表示
 - `\d "User"`: 特定のテーブルの詳細な構造確認
 - `SELECT * FROM "User";` SQLを実行
+
+## APIのドキュメント
+起動後、以下にアクセスするとAPIの仕様を確認できます。
+```
+http://localhost:8080/api-docs/
+```
