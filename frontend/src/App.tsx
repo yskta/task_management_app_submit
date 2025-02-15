@@ -31,6 +31,7 @@ const NavigationBar = () => {
             >
               タスク一覧
             </Link>
+            <span> </span>
             <button 
               onClick={handleLogout}
               className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
@@ -46,6 +47,7 @@ const NavigationBar = () => {
             >
               ログイン
             </Link>
+            <span> </span>
             <Link 
               to="/signup" 
               className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"

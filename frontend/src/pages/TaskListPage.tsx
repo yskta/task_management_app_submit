@@ -48,32 +48,38 @@ export const TaskListPage: React.FC = () => {
         onTaskCreated={fetchTasks}
         />
         <div className="grid gap-4">
-            {tasks.map(task => (  
-            <div 
-                key={task.id} 
-                className="p-4 bg-white rounded-lg shadow"
-                onClick={() => setSelectedTask(task)}
-            >
-                <h2 className="text-xl font-semibold">タイトル:{task.title}</h2>
-                {task.description && (
-                <p className="text-gray-600 mt-2">説明:{task.description}</p>
-                )}
-                <div className="mt-2">
-                  <div>
-                    <span className="text-sm text-gray-500">作成者: {task.creator.name}</span>
+            {tasks.map(task => (
+            <>
+              <div 
+                  key={task.id} 
+                  className="p-4 bg-white rounded-lg shadow"
+                  onClick={() => setSelectedTask(task)}
+              >
+                  <h2 className="text-xl font-semibold">タイトル:{task.title}</h2>
+                  {task.description && (
+                  <p className="text-gray-600 mt-2">説明:{task.description}</p>
+                  )}
+                  <div className="mt-2">
+                    <div>
+                      <span className="text-sm text-gray-500">作成者: {task.creator.name}</span>
+                    </div>
+                    <div>
+                      <span className={`px-2 py-1 rounded text-sm ${
+                          task.status === 'TODO' ? 'bg-yellow-100 text-yellow-800' :
+                          task.status === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-800' :
+                          'bg-green-100 text-green-800'
+                      }`}>
+                          ステータス: {task.status}
+                      </span>
+                    </div>
                   </div>
-                  <div>
-                    <span className={`px-2 py-1 rounded text-sm ${
-                        task.status === 'TODO' ? 'bg-yellow-100 text-yellow-800' :
-                        task.status === 'IN_PROGRESS' ? 'bg-blue-100 text-blue-800' :
-                        'bg-green-100 text-green-800'
-                    }`}>
-                        ステータス: {task.status}
-                    </span>
-                  </div>
-                </div>
-            </div>
+              </div>
+            <hr className="border-gray-200" />
+            </>
             ))}
+            <div>
+              <h1 className="text-2xl font-bold">タスク詳細</h1>
+            </div>
             {selectedTask && (
                 <TaskDetailModal
                 task={selectedTask}
