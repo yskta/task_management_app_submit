@@ -25,6 +25,18 @@ git clone git@github.com:yskta/layerX_Internship_submit.git
 ```
 docker-compose up -d
 ```
+2. 環境変数のファイルを追加
+- cd backend && touch .env で以下を追記
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/taskdb?schema=public"
+JWT_SECRET="long-secret-key"
+PORT=8080
+```
+- cd frontend && touch .env で以下を追記
+```
+REACT_APP_API_URL=http://localhost:8080
+```
+
 3. バックエンドの起動
 ```
 cd backend
