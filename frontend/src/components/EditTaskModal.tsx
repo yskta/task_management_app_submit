@@ -59,18 +59,6 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
     }
   };
 
-  const handleDelete = async () => {
-    if (window.confirm('このタスクを削除してもよろしいですか？')) {
-      try {
-        await taskService.deleteTask(task.id);
-        onTaskUpdated();
-        onClose();
-      } catch (error) {
-        console.error('Error deleting task:', error);
-      }
-    }
-  };
-
   const handleAssignUser = async () => {
     if (!selectedUserId) return;
     try {
@@ -148,13 +136,6 @@ export const EditTaskModal: React.FC<EditTaskModalProps> = ({
             </div>
           </div>
           <div className="flex justify-between">
-            <button
-              type="button"
-              onClick={handleDelete}
-              className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-              削除
-            </button>
             <div className="flex gap-2">
               <button
                 type="button"

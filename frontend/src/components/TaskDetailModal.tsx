@@ -1,23 +1,39 @@
 import React, { useState } from 'react';
 import { Task } from '../types/task';
 import { EditTaskModal } from './EditTaskModal';
+import { taskService } from '../services/taskService';
 
 interface TaskDetailModalProps {
   task: Task;
   isOpen: boolean;
   onClose: () => void;
   onTaskUpdated: () => void;
+  onTaskDeleted: () => void;
 }
 
 export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
   task,
   isOpen,
   onClose,
-  onTaskUpdated
+  onTaskUpdated,
+  onTaskDeleted
 }) => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   if (!isOpen) return null;
-  
+
+  const handleDelete = async () => {
+    if (window.confirm('このタスクを削除してもよろしいですか？')) {
+      try {
+        await taskService.deleteTask(task.id);
+        onTaskDeleted();
+        onClose();
+      } catch (error) {
+        console.error('Error deleting task:', error);
+        alert('タスクの削除に失敗しました');
+      }
+    }
+  };
+
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
       <div className="bg-white p-6 rounded-lg w-full max-w-2xl">
@@ -28,6 +44,12 @@ export const TaskDetailModal: React.FC<TaskDetailModalProps> = ({
             className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
           >
             編集
+          </button>
+          <button
+            onClick={handleDelete}
+            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+          >
+            削除
           </button>
           <button
             onClick={onClose}

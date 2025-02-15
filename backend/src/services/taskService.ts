@@ -130,7 +130,7 @@ export class TaskService {
   }
 
   async deleteTask(taskId: number, userId: number) {
-    // まず、タスク作成者を確認
+    // タスク作成者を確認して、タスク作成者であれば削除
     const task = await prisma.task.findFirst({
       where: {
         id: taskId,
