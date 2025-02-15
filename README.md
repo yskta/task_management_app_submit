@@ -40,6 +40,9 @@ REACT_APP_API_URL=http://localhost:8080
 3. バックエンドの起動
 ```
 cd backend
+# npm installでエラーが出る場合は以下を試してください
+# rm -rf node_modules
+# rm package-lock.json
 npm install
 npx prisma migrate dev --name init
 npm run seed
