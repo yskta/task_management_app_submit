@@ -65,12 +65,8 @@ npm start
 サインアップ機能でユーザー追加可能
 
 ### 補足
-- コンテナの起動確認
-```
-docker ps
-```
-- コンテナ内のデータベースに接続
-`docker exec -it task-management-db psql -U postgres -d taskdb`
+- コンテナの起動確認 `docker ps`
+- コンテナ内のデータベースに接続 `docker exec -it task-management-db psql -U postgres -d taskdb`
 - `\dt`：テーブル一覧表示
 - `\d "User"`: 特定のテーブルの詳細な構造確認
 - `SELECT * FROM "User";` SQLを実行
